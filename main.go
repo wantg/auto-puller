@@ -49,7 +49,7 @@ func main() {
 	for {
 		config := loadConfig()
 		path := AppPath(config.Path)
-		instructs := "git remote update;git status -uno"
+		instructs := "git remote update; git status -uno"
 		additionalInstructs := config.AdditionalInstructs
 		stdoutStderr := runInstruct(path, instructs)
 		upToDate := strings.Index(string(stdoutStderr), "up-to-date") > -1
