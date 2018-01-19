@@ -30,7 +30,7 @@ func AppPath(subPath string) string {
 
 func loadConfig() *config {
 	c := config{}
-	configBytes, _ := ioutil.ReadFile(AppPath("/config.json"))
+	configBytes, _ := ioutil.ReadFile(AppPath("./config.json"))
 	json.Unmarshal(configBytes, &c)
 	return &c
 }
