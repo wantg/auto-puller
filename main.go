@@ -32,12 +32,16 @@ func loadConfig() *config {
 }
 
 func runInstruct(path string, instruct string) string {
+
 	cmd := exec.Command("sh", "-c", instruct)
 	cmd.Dir = path
 	stdoutStderr, err := cmd.CombinedOutput()
 	if err != nil {
 		log.Fatal(err)
 	}
+	log.Println(path, instruct)
+	log.Println(string(stdoutStderr))
+	log.Println()
 	return string(stdoutStderr)
 }
 
