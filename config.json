@@ -1,15 +1,15 @@
 {
-    "path": "/Users/Clint/Projects/auto-puller",
+    "path": ".",
     "additional-instructs": [{
             "path": ".",
             "instructs": "git pull"
         },
         {
-            "path": "/Users/Clint/Projects/auto-puller",
+            "path": ".",
             "instructs": "ls -al"
         },
         {
-            "path": "/Users/Clint/Projects/auto-puller",
+            "path": ".",
             "instructs": "ls -al"
         }
     ]

@@ -20,8 +20,12 @@ type config struct {
 }
 
 func AppPath(subPath string) string {
-	rootPath, _ := os.Executable()
-	return path.Join(path.Dir(rootPath), subPath)
+	if string(subPath[0]) == "/" {
+		return subPath
+	} else {
+		rootPath, _ := os.Executable()
+		return path.Join(path.Dir(rootPath), subPath)
+	}
 }
 
 func loadConfig() *config {
@@ -32,7 +36,6 @@ func loadConfig() *config {
 }
 
 func runInstruct(path string, instruct string) string {
-
 	cmd := exec.Command("sh", "-c", instruct)
 	cmd.Dir = path
 	stdoutStderr, err := cmd.CombinedOutput()
@@ -48,15 +51,14 @@ func runInstruct(path string, instruct string) string {
 func main() {
 	for {
 		config := loadConfig()
+		path := AppPath(config.Path)
+		instructs := "git remote update;git status -uno"
 		additionalInstructs := config.AdditionalInstructs
-		stdoutStderr := runInstruct(config.Path, "git remote update;git status -uno")
+		stdoutStderr := runInstruct(path, instructs)
 		upToDate := strings.Index(string(stdoutStderr), "up-to-date") > -1
 		if !upToDate {
 			for _, additionalInstruct := range additionalInstructs {
-				path := additionalInstruct.Path
-				if path == "." {
-					path = config.Path
-				}
+				path := AppPath(additionalInstruct.Path)
 				instructs := additionalInstruct.Instructs
 				runInstruct(path, instructs)
 			}
