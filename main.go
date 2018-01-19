@@ -48,7 +48,7 @@ func main() {
 		additionalInstructs := config.AdditionalInstructs
 		stdoutStderr := runInstruct(config.Path, "git remote update;git status -uno")
 		upToDate := strings.Index(string(stdoutStderr), "up-to-date") > -1
-		if !upToDate || 1 == 1 {
+		if !upToDate {
 			for _, additionalInstruct := range additionalInstructs {
 				path := additionalInstruct.Path
 				if path == "." {
