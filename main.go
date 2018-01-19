@@ -38,7 +38,6 @@ func runInstruct(path string, instruct string) string {
 	if err != nil {
 		log.Fatal(err)
 	}
-	log.Println(string(stdoutStderr))
 	return string(stdoutStderr)
 }
 
